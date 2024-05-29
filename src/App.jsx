@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import List from "./components/List";
 
 // TODO: 콘솔창을 확인해보고 input 타이핑할 때 마다
@@ -17,9 +17,12 @@ const App = () => {
     setInput("");
   };
 
-  const filteredItems = items.filter((item) =>
-    item.toLocaleLowerCase().includes("item"),
-  );
+  //기존 items 를 가공한 배열을 List 의 props로 내려주는 경우
+  const mappedItems = () => {
+    return items.filter((item) => item.toLocaleLowerCase().includes("item"));
+  };
+
+  const filteredItems = useMemo(() => mappedItems(), [items]);
 
   return (
     <div>
